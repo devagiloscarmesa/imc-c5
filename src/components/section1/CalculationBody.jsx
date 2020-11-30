@@ -14,11 +14,24 @@ class CalculationBody extends Component {
         //this.cambiar = this.cambiar.bind(this)
     }
 
-    componentWillMount(){
+   /* UNSAFE_componentWillMount(){
         console.log("UNSAFE_componentWillMount")
+    } */
+
+    static getDerivedStateFromProps(props, state){
+        console.log("==================")
+        console.log("getDerivedStateFromProps")
+        console.log(props, state)
+        state.peso = 19
+        console.log("==================")
+        return state
     }
 
- 
+    componentDidMount(){
+        console.log("==================")
+        console.log("componentDidMount")
+        console.log("==================")
+    }
 
     sumar(n1, n2) {
         return n1 + n2
