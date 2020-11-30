@@ -10,6 +10,8 @@ class CalculationBody extends Component {
             peso : 10,
             altura : "1.8 metros"
         }
+
+        this.cambiar = this.cambiar.bind(this)
     }
 
     sumar(n1, n2) {
@@ -17,7 +19,8 @@ class CalculationBody extends Component {
     }
 
     cambiar() {
-        alert("Se dió click!!!!!")
+        let txtaltura = document.querySelector("#txtAltura").value    
+        this.setState({altura : txtaltura})
     }
 
     render() {
@@ -28,7 +31,7 @@ class CalculationBody extends Component {
             <p>Su edad es {this.props.edad}</p>
             <MiNombre edad = {9}></MiNombre>
 
-            <input type="text" placeholder="Altura"/>
+            <input type="text" placeholder="Altura" id="txtAltura"/>
             <button onClick={this.cambiar} >Cambiar valores</button>
 
             <p>Altura : {this.state.altura}</p>
