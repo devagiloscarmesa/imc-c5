@@ -11,19 +11,27 @@ class CalculationBody extends Component {
             altura : "1.8 metros"
         }
 
-        this.cambiar = this.cambiar.bind(this)
+        //this.cambiar = this.cambiar.bind(this)
     }
+
+    componentWillMount(){
+        console.log("UNSAFE_componentWillMount")
+    }
+
+ 
 
     sumar(n1, n2) {
         return n1 + n2
     }
 
-    cambiar() {
+    cambiar = () => {
         let txtaltura = document.querySelector("#txtAltura").value    
-        this.setState({altura : txtaltura})
+        this.setState({altura : txtaltura, peso : "otro peso", nombre : "Oscar"})
+        
     }
-
+ 
     render() {
+        console.log("se ejecuto el metodo render!!!!!")
         return <section>
             <p>Hola desde Class Component</p>
             <p>{this.nombre}</p>
