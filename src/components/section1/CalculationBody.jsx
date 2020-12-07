@@ -8,7 +8,8 @@ class CalculationBody extends Component {
         console.log(props)
         this.state = {
             peso : 10,
-            altura : "1.8 metros"
+            altura : "1.8 metros",
+            alumnos : []
         }
 
         //this.cambiar = this.cambiar.bind(this)
@@ -28,9 +29,22 @@ class CalculationBody extends Component {
     }
 
     componentDidMount(){
-        console.log("==================")
-        console.log("componentDidMount")
-        console.log("==================")
+        fetch('https://api-fake-mediatecapp-nine.vercel.app/actores')
+        .then((respuesta) => {
+            /*respuesta.json().then((datos) => {
+                console.log(datos)
+            }) */
+            return respuesta.json()
+        })
+        .then((datos) => {
+            this.setState({alumnos : datos}) 
+        })
+        .catch((respuesta)=>{
+
+        })
+        .finally(function(){
+            console.log("Se ejecuto el metodo finally!!!"); 
+        })
     }
 
     sumar(n1, n2) {
@@ -57,6 +71,26 @@ class CalculationBody extends Component {
 
             <p>Altura : {this.state.altura}</p>
             <p>Peso : {this.state.peso} Kg</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Documento</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Fecha de nacimiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {this.state.alumnos.map((alumno, i) => {
+                      return <tr key={i}>
+                          <td>{alumno.documento}</td>
+                          <td>{alumno.nombres}</td>
+                          <td>{alumno.apellidos}</td>
+                          <td>{alumno.fecha_nacimiento}</td>
+                      </tr>
+                  })}  
+                </tbody>
+            </table>
         </section>
     }
 }
