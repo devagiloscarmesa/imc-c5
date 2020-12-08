@@ -14,6 +14,7 @@ class CalculationBody extends Component {
             altura : "1.8 metros",
             alumnos : [],
             alumno : {
+                documento : Faker.random.uuid(),
                 nombres : Faker.name.firstName(),
                 apellidos : Faker.name.lastName(),
                 telefono_celular : Faker.phone.phoneNumber(),
@@ -93,18 +94,14 @@ class CalculationBody extends Component {
     }
 
     almacenarEstudianteFormulario = e => {
-        let data = {
-            documento: Faker.random.uuid(),
-            "tipo_documento": Faker.random.arrayElement(['TC','CC','PP']),
-            nombres: Faker.name.findName(),
-            "apellidos": Faker.name.lastName(),
-        }
+        e.preventDefault()
+        
         fetch('https://api-fake-c5-1-h32cioae7.vercel.app/actores',{
             method : "POST",
             headers : {
                 'Content-Type' : "application/json"
             },
-            body : JSON.stringify(data)
+            body : JSON.stringify(this.state.alumno)
         })
         .then(respuesta => respuesta.json())
         .then(data => {
@@ -155,9 +152,10 @@ class CalculationBody extends Component {
                   })}  
                 </tbody>
             </table>
-            <form>
-                <input type="text" placeholder="Nombres" name="nombres" defaultValue={this.state.alumno.nombres} onKeyUp={this.cambiarEntradAlumno}/><br/>
+            <form onSubmit={this.almacenarEstudianteFormulario}>
+                <input type="text" placeholder="Nombres" name="nombres" defaultValue={this.state.alumno.nombres} onKeyUp={this.cambiarEntradAlumno} required/><br/>
                 <input type="text" placeholder="Apellido" name="apellidos" defaultValue={this.state.alumno.apellidos} onKeyUp={this.cambiarEntradAlumno}/><br/>
+                <input type="text" name="documento" defaultValue={this.state.alumno.documento} onKeyUp={this.cambiarEntradAlumno}/><br/>
                 <select name="tipo_documento" onChange={this.cambiarEntradAlumno} defaultValue={this.state.alumno.tipo_documento}>
                     <option>Tipo de documento</option>
                     <option value="CC">Cédula de Ciudadania</option>
