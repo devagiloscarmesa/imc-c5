@@ -29,7 +29,7 @@ class CalculationBody extends Component {
     }
 
     componentDidMount(){
-        fetch('https://api-fake-mediatecapp-nine.vercel.app/actores')
+        fetch('https://api-fake-c5-1-h32cioae7.vercel.app/actores')
         .then((respuesta) => {
             /*respuesta.json().then((datos) => {
                 console.log(datos)
@@ -56,9 +56,24 @@ class CalculationBody extends Component {
         this.setState({altura : txtaltura, peso : "otro peso", nombre : "Oscar"})
         
     }
+
+    almacenarEstudiante = (e) => {
+        let data = {
+            documento: "11988823263",
+            "tipo_documento": "TC",
+            nombres: "Pepito",
+            "apellidos": "Perez",
+        }
+        fetch('https://api-fake-mediatecapp-nine.vercel.app/actores',{
+            method : "POST",
+            headers : {
+                'Content-Type' : "application/json"
+            },
+            body : JSON.stringify(data)
+        })
+    }
  
     render() {
-        console.log("se ejecuto el metodo render!!!!!")
         return <section>
             <p>Hola desde Class Component</p>
             <p>{this.nombre}</p>
@@ -91,6 +106,7 @@ class CalculationBody extends Component {
                   })}  
                 </tbody>
             </table>
+            <button onClick={this.almacenarEstudiante}>Almacenar</button>
         </section>
     }
 }
