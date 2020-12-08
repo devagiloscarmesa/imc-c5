@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import Faker from 'faker'
+
+Faker.locale = "es_MX"
 
 class CalculationBody extends Component {
 
@@ -9,7 +12,14 @@ class CalculationBody extends Component {
         this.state = {
             peso : 10,
             altura : "1.8 metros",
-            alumnos : []
+            alumnos : [],
+            alumno : {
+                nombres : Faker.name.firstName(),
+                apellidos : Faker.name.lastName(),
+                telefono_celular : Faker.phone.phoneNumber(),
+                tipo_documento : Faker.random.arrayElement(["CC","TI","PP"]),
+                genero : Faker.random.arrayElement(["hombre","mujer"])
+            }
         }
 
         //this.cambiar = this.cambiar.bind(this)
@@ -29,6 +39,10 @@ class CalculationBody extends Component {
     }
 
     componentDidMount(){
+        this.cargarListaEstudiantes()
+    }
+
+    cargarListaEstudiantes = () => {
         fetch('https://api-fake-c5-1-h32cioae7.vercel.app/actores')
         .then((respuesta) => {
             /*respuesta.json().then((datos) => {
@@ -57,23 +71,58 @@ class CalculationBody extends Component {
         
     }
 
-    almacenarEstudiante = (e) => {
+    almacenarEstudianteAleatirio = e => {
         let data = {
-            documento: "11988823263",
-            "tipo_documento": "TC",
-            nombres: "Pepito",
-            "apellidos": "Perez",
+            documento: Faker.random.uuid(),
+            "tipo_documento": Faker.random.arrayElement(['TC','CC','PP']),
+            nombres: Faker.name.findName(),
+            "apellidos": Faker.name.lastName(),
         }
-        fetch('https://api-fake-mediatecapp-nine.vercel.app/actores',{
+        fetch('https://api-fake-c5-1-h32cioae7.vercel.app/actores',{
             method : "POST",
             headers : {
                 'Content-Type' : "application/json"
             },
             body : JSON.stringify(data)
         })
+        .then(respuesta => respuesta.json())
+        .then(data => {
+            alert(`El alumno fue almacenado correctamente. Se genero el id ${data.id}`)
+            this.cargarListaEstudiantes()
+        })
     }
+
+    almacenarEstudianteFormulario = e => {
+        let data = {
+            documento: Faker.random.uuid(),
+            "tipo_documento": Faker.random.arrayElement(['TC','CC','PP']),
+            nombres: Faker.name.findName(),
+            "apellidos": Faker.name.lastName(),
+        }
+        fetch('https://api-fake-c5-1-h32cioae7.vercel.app/actores',{
+            method : "POST",
+            headers : {
+                'Content-Type' : "application/json"
+            },
+            body : JSON.stringify(data)
+        })
+        .then(respuesta => respuesta.json())
+        .then(data => {
+            alert(`El alumno fue almacenado correctamente. Se genero el id ${data.id}`)
+            this.cargarListaEstudiantes()
+        })
+    }
+
+    cambiarEntradAlumno = (e) => {
+        console.log(e.target)
+        let alumno = this.state.alumno
+        alumno[e.target.name] = e.target.value
+        this.setState({alumno : alumno})
+    }
+
  
     render() {
+        
         return <section>
             <p>Hola desde Class Component</p>
             <p>{this.nombre}</p>
@@ -86,7 +135,7 @@ class CalculationBody extends Component {
 
             <p>Altura : {this.state.altura}</p>
             <p>Peso : {this.state.peso} Kg</p>
-            <table>
+            <table border="1">
                 <thead>
                     <tr>
                         <th>Documento</th>
@@ -106,7 +155,24 @@ class CalculationBody extends Component {
                   })}  
                 </tbody>
             </table>
-            <button onClick={this.almacenarEstudiante}>Almacenar</button>
+            <form>
+                <input type="text" placeholder="Nombres" name="nombres" defaultValue={this.state.alumno.nombres} onKeyUp={this.cambiarEntradAlumno}/><br/>
+                <input type="text" placeholder="Apellido" name="apellidos" defaultValue={this.state.alumno.apellidos} onKeyUp={this.cambiarEntradAlumno}/><br/>
+                <select name="tipo_documento" onChange={this.cambiarEntradAlumno} defaultValue={this.state.alumno.tipo_documento}>
+                    <option>Tipo de documento</option>
+                    <option value="CC">Cédula de Ciudadania</option>
+                    <option value="TI">Tarjeta de Identidad</option>
+                    <option value="PP">Pasaporte</option>
+                </select><br/>
+                <select name="genero" onChange={this.cambiarEntradAlumno} defaultValue={this.state.alumno.genero}>
+                    <option>Genero</option>
+                    <option value="mujer">Mujer</option>
+                    <option value="hombre">Hombre</option>
+                </select><br/>
+                <input type="tel" name="telefono_celular" onKeyUp={this.cambiarEntradAlumno} defaultValue={this.state.alumno.telefono_celular} placeholder="Teléfono Celular"/><br/>
+                <input type="submit" value="Enviar"/>
+            </form>
+            <button onClick={this.almacenarEstudianteAleatirio}>Almacenar Aleatorio</button>
         </section>
     }
 }
