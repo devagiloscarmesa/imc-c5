@@ -7,7 +7,7 @@ let miNombre = () => {
 
 export default function CalculationHeader(props) {
     return (
-        <article style = {{background : props.colorBackground, padding : "10px"}}>
+        <article className="card-header">
             {props.title}
         </article>
     )
