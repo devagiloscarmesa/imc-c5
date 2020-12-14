@@ -1,4 +1,5 @@
 import React from 'react'
+import UsuarioContext from './../../context/UsuarioContext'
 
 let miNombre = () => {
     let nombre = <p>Mi nombre es Osccar</p>
@@ -8,7 +9,11 @@ let miNombre = () => {
 export default function CalculationHeader(props) {
     return (
         <article className="card-header">
-            {props.title}
+            <UsuarioContext.Consumer>
+                {(usuario) => {
+                    return <p>{props.title} - {usuario.nombres}</p>
+                }}
+            </UsuarioContext.Consumer>
         </article>
     )
 }

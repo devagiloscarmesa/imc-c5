@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Faker from 'faker'
 import CalculationForm from './CalculationForm'
-
+import CalcultarionViewIMC from './CalculationViewIMC'
+import ScaleIMC from './ScaleIMC'
 Faker.locale = "es_MX"
 
 class CalculationBody extends Component {
@@ -118,12 +119,13 @@ class CalculationBody extends Component {
         this.setState({ alumno: alumno })
     }
 
-
     render() {
 
         return <section className="card-body">
             <article className="row">
                 <CalculationForm/>
+                <CalcultarionViewIMC/>
+                <ScaleIMC/>
             </article>
             <div id="contenedor-clase-prueba">
                 <p>Hola desde Class Component</p>

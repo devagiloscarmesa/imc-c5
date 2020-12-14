@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Faker from 'faker'
 Faker.locale = "es_MX"
 export default function CalculationForm(props) {
@@ -11,6 +11,14 @@ export default function CalculationForm(props) {
         tipo_documento: Faker.random.arrayElement(["CC", "TI", "PP"]),
         genero: Faker.random.arrayElement(["hombre", "mujer"])
     })
+
+    useEffect(() => {
+        console.log("Se ejecuto la funcion de useEffect!!!!!")
+    },[])
+
+    useEffect(() => {
+       // alert(`Nombre del estudiante : ${alumno.nombres}`)
+    },[alumno])
 
     const actualizarInformacionEstudiante = () => {
         fetch(`https://api-fake-c5-1-h32cioae7.vercel.app/actores/${Faker.random.arrayElement([1,2,3,4,5,6])}`)
