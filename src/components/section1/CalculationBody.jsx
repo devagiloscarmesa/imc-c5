@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as ReactBootstrap from 'react-bootstrap'
 import Faker from 'faker'
 import CalculationForm from './CalculationForm'
 import CalcultarionViewIMC from './CalculationViewIMC'
@@ -122,11 +123,11 @@ class CalculationBody extends Component {
     render() {
 
         return <section className="card-body">
-            <article className="row">
+            <ReactBootstrap.Row>
                 <CalculationForm/>
                 <CalcultarionViewIMC/>
                 <ScaleIMC/>
-            </article>
+            </ReactBootstrap.Row>
             <div id="contenedor-clase-prueba">
                 <p>Hola desde Class Component</p>
                 <p>{this.nombre}</p>
