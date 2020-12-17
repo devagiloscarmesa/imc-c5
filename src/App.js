@@ -38,6 +38,9 @@ function App() {
             <Route path="/" exact >
               <Redirect to="/imc-toma"></Redirect>
             </Route>
+            <Route path="/imc-c5" exact >
+              <Redirect to="/imc-toma"></Redirect>
+            </Route>
             <Route path="/imc-toma" exact render={(props) => {
               console.log(props)
               return <Calculadora {...props} nombre="oscar" />
