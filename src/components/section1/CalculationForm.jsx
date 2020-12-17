@@ -47,7 +47,7 @@ export default function CalculationForm(props) {
                     <label htmlFor="altura" className="col-form-label">Altura (cm)</label>
                     <input type="number" className="form-control" id="altura" name="altura" required />
                 </div>
-            </form>
+            </form><br/>
 
             <Button variant="primary" onClick={handleShow}>
                 Abrir información del estudiante
@@ -65,8 +65,7 @@ export default function CalculationForm(props) {
                     <p>Documento: {alumno.documento}</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Cerrar</Button>
+                    <Button variant="secondary" onClick={handleClose}>Cerrar</Button>
                     
                 </Modal.Footer>
             </Modal>
